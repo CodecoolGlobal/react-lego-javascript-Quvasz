@@ -1,5 +1,3 @@
-
-
 body {
     background: #1D2029;
     font-family: "Helvetica";
@@ -35,11 +33,11 @@ body {
 }
 
 .trend-ascend {
-    color: #429189
+    color: #429189 !important
 }
 
 .trend-descend {
-    color: #82455C
+    color: #82455C !important
 }
 
 .header {
@@ -118,4 +116,9 @@ input {
     margin: 5px;
 }
 
-textarea, select, input, button { outline: none; }
+textarea,
+select,
+input,
+button {
+    outline: none;
+}

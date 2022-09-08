@@ -1,40 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import data from "./sampleData";
 import AddNewCard from "./components/addNewCard";
+import Header from './components/Header';
+import Card from "./components/Card";
 
 function App() {
-    console.log(data)
+    const [users, setUsers] = useState(data.users);
+    let key = 0;
+
+    function updateUser(userId, followers) {
+        const newUsers = [...users];
+        newUsers[userId].followers = followers;
+        setUsers(newUsers);
+    }
+
+    function addUser(user) {
+        const newUsers = [...users];
+        newUsers.push(user);
+        setUsers(newUsers);
+    }
+
     return (
         <div className="root">
-            <div className="header">
-                Social Media Dashboard
-                <div className="sub-header">
-                    Total followers: 33
-                </div>
-            </div>
+            <Header users={users} />
+            {users.map(user => {
+                return <Card user={user} icon={data.icon} userId={key} key={key++} updateUser={updateUser} />
+            })}
 
-            <section className="platform">
-                <div className="icon" >
-                    <img src={data.icon}></img>
-                    <p>{data.users[0].name}</p>
-                </div>
-                <div className="followers">
-                    <button className="update-followers-button">-</button>
-                    {data.users[0].followers}
-                    <button className="update-followers-button">+</button>
-                </div>
-                <div className="subscribers">
-                    F O L O W E R S
-                </div>
-                <div>
-                    <span className='trend-ascend'>▼</span>
-                    <span className='trend-descend'>▼</span>
-                    {data.users[0].difference}
-                </div>
-            </section>
-
-            <AddNewCard></AddNewCard>
+            <AddNewCard addUser={addUser} />
         </div>
     )
 }
